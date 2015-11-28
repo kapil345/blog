@@ -16,6 +16,8 @@ Rails.application.routes.draw do
      get 'about'   => 'static_pages#about'
      get 'contact' => 'static_pages#contact'
 
+     resources:users
+
 #when you open by root dont have to write complete url just write local host:8000
    #root 'welcome#index'
 
