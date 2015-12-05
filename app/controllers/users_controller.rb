@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+include SessionsHelper
   def show
   	 @user = User.find(params[:id])
   	 # binding.pry
@@ -12,6 +12,7 @@ end
  def create
  @user = User.new(user_params)
    if @user.save
+     log_in @user
    	 #handle sucessfull reuqest
      flash[:success] = "Welcome to the OKCuPId!"
  redirect_to @user
