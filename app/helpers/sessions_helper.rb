@@ -27,6 +27,8 @@ module SessionsHelper
   end
 
 
+
+
   # Forgets a persistent session.
   def forget(user)
     user.forget

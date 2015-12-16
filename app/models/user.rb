@@ -1,5 +1,5 @@
  class User < ActiveRecord::Base
-
+has_many :microposts, dependent: :destroy
 before_save {self.email = email.downcase}
 validates:name ,presence:true ,length:  {maximum:50} 
 
@@ -10,11 +10,22 @@ validates:email ,presence:true, length: {maximum:255},
 
 has_secure_password
 
+# Defines a proto-feed.
+  # See "Following users" for the full implementation.
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
+
+
+
+
+
  def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
+  
  # Returns a random token.
   def User.new_token
     SecureRandom.urlsafe_base64
